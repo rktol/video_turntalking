@@ -1,0 +1,224 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="webgazer.js" type="text/javascript" > </script>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+  </head>
+
+  <body>
+    <canvas id="plotting_canvas" width="500" height="500" style="cursor:crosshair;"></canvas>
+
+    <input type="button" value = "Start" style="position: absolute; right: 0px; top: 0px" onclick="startgaze()"/>
+    <input type="button" value = "End" style="position: absolute; right: 50px; top: 0px" onclick="endgaze()"/>
+    <a id="downloadCSV" style="position: absolute; right: 100px; top: 0px" >download</a>
+
+    <script type="text/javascript">
+
+
+    var gazePoints = [];
+
+    var startgaze = function(){
+      mode = 1;
+      webgazer.showPredictionPoints(false);
+      webgazer.setVideoViewerSize(1,1);
+
+      base_seconds = Date.now();
+  
+    }
+
+    var endgaze = function(){
+
+      mode = 2;
+
+      gazePoints.push(statesArr,timestampArr);
+      console.log(gazePoints);
+
+      let csvData= "data:text/csv;charset=utf-8,";
+
+      gazePoints.forEach(function(gazevals) {
+        let row = gazevals.join(",");
+        csvData += row + "\r\n";
+        console.log(csvData);
+    });
+      var encodedUri = encodeURI(csvData);
+      var link = document.getElementById("downloadCSV");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", "csvdata.csv");
+
+    }
+
+    window.applyKalmanFilter = true;
+
+    var pxdot = 0;
+    var pydot = 0;
+    var xdot = 0;
+    var ydot = 0;
+    var statesArr = new Array();
+    var timestampArr = new Array();
+
+    var mode = 0;
+
+
+    
+
+
+    var state  = 0;
+
+    var timestamp = 0;
+
+    // 現在のローカル時間が格納された、Date オブジェクトを作成する
+　  var date_obj = new Date();
+
+    // Date.now メソッドをサポートしている
+    if(Date.now){
+
+      // 協定世界時の 1970/01/01 00:00:00 から開始して、経過した時間をミリ秒で取得
+      var base_seconds = Date.now();
+
+      // 出力テスト
+      console.log(base_seconds);
+    }
+
+
+      window.onload = function() {
+
+          //start the webgazer tracker
+          webgazer.setGazeListener(function(data, clock) {
+
+            if(data == null){
+              console.log('nothing');
+              return;
+            }
+
+            //console.log('aaa');
+
+            if(xdot == null){
+            }else{
+              pxdot = xdot;
+              pydot = ydot;
+            }
+
+            xdot = data.x;
+            ydot = data.y;
+
+
+            if(ydot < 350){
+              if(xdot < 975 && xdot >= 325){
+                if(state != 1){
+
+                  if(mode == 1){
+
+                  // Date.now メソッドをサポートしている
+                  if(Date.now){
+                  // 協定世界時の 1970/01/01 00:00:00 から開始して、経過した時間をミリ秒で取得
+                  var now_seconds = Date.now();
+                  }
+
+                  timestamp = now_seconds - base_seconds;
+
+                  state = 1;
+                  //console.log(timestamp,":",state);
+
+                  statesArr.push(state);
+                  timestampArr.push(timestamp);
+                  console.log(timestampArr,":",statesArr);
+
+                }
+
+                }
+              }
+            }else{
+              if(xdot < 650){
+                if(state != 2){
+                  if(mode == 1){
+
+                  // Date.now メソッドをサポートしている
+                  if(Date.now){
+                  // 協定世界時の 1970/01/01 00:00:00 から開始して、経過した時間をミリ秒で取得
+                  var now_seconds = Date.now();
+                  }
+
+                  timestamp = now_seconds - base_seconds;
+
+                  state = 2;
+                  console.log(timestamp,":",state);
+
+                  statesArr.push(state);
+                  timestampArr.push(timestamp);
+                  console.log(timestampArr,":",statesArr);
+                }
+                }
+              }else{
+                if(state != 3){
+
+                  if(mode == 1){
+
+                  // Date.now メソッドをサポートしている
+                  if(Date.now){
+                  // 協定世界時の 1970/01/01 00:00:00 から開始して、経過した時間をミリ秒で取得
+                  var now_seconds = Date.now();
+                  }
+
+                  timestamp = now_seconds - base_seconds;
+
+                  state = 3;
+                  console.log(timestamp,":",state);
+
+                  statesArr.push(state);
+                  timestampArr.push(timestamp);
+                  console.log(timestampArr,":",statesArr);
+                }
+              }
+              }
+            }
+
+
+
+              })
+              .begin();
+
+              if(mode == 0){
+                webgazer.showPredictionPoints(true);
+              }else if(mode == 1){
+                webgazer.showPredictionPoints(false);
+              } /* shows a square every 100 milliseconds where current prediction is */
+
+          //Set up the webgazer video feedback.
+          var setup = function() {
+
+              //Set up the main canvas. The main canvas is used to calibrate the webgazer.
+              var canvas = document.getElementById("plotting_canvas");
+              canvas.width = window.innerWidth;
+              canvas.height = window.innerHeight;
+              canvas.style.position = 'fixed';
+          };
+
+          function checkIfReady() {
+              if (webgazer.isReady()) {
+                  setup();
+              } else {
+                  setTimeout(checkIfReady, 30);
+              }
+          }
+
+          setTimeout(checkIfReady,30);
+      };
+
+      window.onbeforeunload = function() {
+          //webgazer.end(); //Uncomment if you want to save the data even if you reload the page.
+          window.localStorage.clear(); //Comment out if you want to save data across different sessions
+      }
+
+      /**
+       * Restart the calibration process by clearing the local storage and reseting the calibration point
+       */
+      function Restart(){
+          document.getElementById("Accuracy").innerHTML = "<a>Not yet Calibrated</a>";
+          ClearCalibration();
+          PopUpInstruction();
+      }
+
+    </script>
+
+  </body>
+</html>
