@@ -133,6 +133,97 @@ const Peer = window.Peer;
       messages.textContent += `${peer.id}: ${localText.value}\n`;
       localText.value = '';
     }
+
+    webgazer.setGazeListener(function(data, clock) {
+
+      if(data == null){
+        console.log('nothing');
+        return;
+      }
+
+      if(xdot == null){
+      }else{
+        pxdot = xdot;
+        pydot = ydot;
+      }
+
+      xdot = data.x;
+      ydot = data.y;
+
+
+      if(ydot < 350){
+        if(xdot < 975 && xdot >= 325){
+          if(state != 1){
+
+            if(mode == 1){
+
+            if(Date.now){
+            var now_seconds = Date.now();
+            }
+
+            timestamp = now_seconds - base_seconds;
+
+            state = 1;
+
+            statesArr.push(state);
+            timestampArr.push(timestamp);
+            console.log(timestampArr,":",statesArr);
+
+            room.send("Looking1");
+            messages.textContent += `${peer.id}:"Looking1"\n`;
+
+          }
+
+          }
+        }
+      }else{
+        if(xdot < 650){
+          if(state != 2){
+            if(mode == 1){
+
+            if(Date.now){
+            var now_seconds = Date.now();
+            }
+
+            timestamp = now_seconds - base_seconds;
+
+            state = 2;
+
+            statesArr.push(state);
+            timestampArr.push(timestamp);
+            console.log(timestampArr,":",statesArr);
+
+            room.send("Looking2");
+            messages.textContent += `${peer.id}: Looking2\n`;
+          }
+          }
+        }else{
+          if(state != 3){
+
+            if(mode == 1){
+            if(Date.now){
+            var now_seconds = Date.now();
+            }
+
+            timestamp = now_seconds - base_seconds;
+
+            state = 3;
+
+            statesArr.push(state);
+            timestampArr.push(timestamp);
+            console.log(timestampArr,":",statesArr);
+
+            room.send("Looking3");
+            messages.textContent += `${peer.id}: Looking3\n`;
+          }
+        }
+        }
+      }
+
+
+
+        })
+        .begin();
   });
 
 })();

@@ -14,7 +14,7 @@
         Change Room mode (before join in a room):
         <a href="#">mesh</a> / <a href="#sfu">sfu</a>
       </p>
-      
+
     -->
       <div class="room">
         
@@ -133,106 +133,8 @@
 
       window.onload = function() {
 
-          //start the webgazer tracker
-          webgazer.setGazeListener(function(data, clock) {
-
-            if(data == null){
-              console.log('nothing');
-              return;
-            }
-
-            //console.log('aaa');
-
-            if(xdot == null){
-            }else{
-              pxdot = xdot;
-              pydot = ydot;
-            }
-
-            xdot = data.x;
-            ydot = data.y;
-
-
-            if(ydot < 350){
-              if(xdot < 975 && xdot >= 325){
-                if(state != 1){
-
-                  if(mode == 1){
-
-                  // Date.now メソッドをサポートしている
-                  if(Date.now){
-                  // 協定世界時の 1970/01/01 00:00:00 から開始して、経過した時間をミリ秒で取得
-                  var now_seconds = Date.now();
-                  }
-
-                  timestamp = now_seconds - base_seconds;
-
-                  state = 1;
-                  //console.log(timestamp,":",state);
-
-                  statesArr.push(state);
-                  timestampArr.push(timestamp);
-                  console.log(timestampArr,":",statesArr);
-
-                }
-
-                }
-              }
-            }else{
-              if(xdot < 650){
-                if(state != 2){
-                  if(mode == 1){
-
-                  // Date.now メソッドをサポートしている
-                  if(Date.now){
-                  // 協定世界時の 1970/01/01 00:00:00 から開始して、経過した時間をミリ秒で取得
-                  var now_seconds = Date.now();
-                  }
-
-                  timestamp = now_seconds - base_seconds;
-
-                  state = 2;
-                  console.log(timestamp,":",state);
-
-                  statesArr.push(state);
-                  timestampArr.push(timestamp);
-                  console.log(timestampArr,":",statesArr);
-                }
-                }
-              }else{
-                if(state != 3){
-
-                  if(mode == 1){
-
-                  // Date.now メソッドをサポートしている
-                  if(Date.now){
-                  // 協定世界時の 1970/01/01 00:00:00 から開始して、経過した時間をミリ秒で取得
-                  var now_seconds = Date.now();
-                  }
-
-                  timestamp = now_seconds - base_seconds;
-
-                  state = 3;
-                  console.log(timestamp,":",state);
-
-                  statesArr.push(state);
-                  timestampArr.push(timestamp);
-                  console.log(timestampArr,":",statesArr);
-                }
-              }
-              }
-            }
-
-
-
-              })
-              .begin();
-
-              if(mode == 0){
-                webgazer.showPredictionPoints(true);
-              }else if(mode == 1){
-                webgazer.showPredictionPoints(false);
-              } /* shows a square every 100 milliseconds where current prediction is */
+          webgazer.showPredictionPoints(true);
+              
 
           //Set up the webgazer video feedback.
           var setup = function() {
