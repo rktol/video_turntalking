@@ -77,28 +77,129 @@ video {
 
 .stream1{
   position: absolute;
-  width:50%;
-  height:50%;
-  left:50%;
-  top:0;
+  width:20%;
+  height:20%;
+  left:75%;
+  bottom:0;
+  z-index:0;
 }
 
 .stream2{
   position: absolute;
-  width:50%;
-  height:50%;
-  left:25%;
+  width:20%;
+  height:20%;
+  left:75%;
   bottom:0;
-
-
+  z-index:0;
 }
 
 .stream3{
-  position:absolute;
-  width:50%;
-  height:50%;
+  position: absolute;
+  width:20%;
+  height:20%;
   left:75%;
   bottom:0;
+  z-index:0;
+}
+
+.local1_stream2{
+  position: absolute;
+  width:65%;
+  height:65%;
+  left:25%;
+  top:0;
+  z-index:0;
+}
+
+.local2_stream3{
+  position: absolute;
+  width:65%;
+  height:65%;
+  left:25%;
+  top:0;
+  z-index:0;
+}
+
+.local3_stream1{
+  position: absolute;
+  width:65%;
+  height:65%;
+  left:25%;
+  top:0;
+  z-index:0;
+}
+
+.local1_stream3{
+  position:absolute;
+  width:65%;
+  height:65%;
+  left:75%;
+  top:0;
+  z-index:0;
+}
+
+.local2_stream1{
+  position:absolute;
+  width:65%;
+  height:65%;
+  left:75%;
+  top:0;
+  z-index:0;
+}
+
+.local3_stream2{
+  position:absolute;
+  width:65%;
+  height:65%;
+  left:75%;
+  top:0;
+  z-index:0;
+}
+
+.right_3{
+  position:absolute;
+  background-image:url(./right_3.png);             /* 画像のURLを指定       */
+  background-repeat:  no-repeat;                /* 画像の繰り返しを指定  */              
+  width:165px;                                  /* 横幅のサイズを指定    */
+  height:80px;
+  left:79%;                                    /* leftとtopを変える */
+  top:25%;
+  z-index:1;
+}
+
+.right_2{
+  position:absolute;
+  background-image:url(./right_2.png);             /* 画像のURLを指定       */
+  background-repeat:  no-repeat;                /* 画像の繰り返しを指定  */              
+  width:125px;                                   /* 横幅のサイズを指定    */
+  height:160px;
+  left:90%;
+  top:65%;
+  z-index:1;
+
+}
+
+.left_2{
+  position:absolute;
+  background-image:url(./left_2.png);             /* 画像のURLを指定       */
+  background-repeat:  no-repeat;                /* 画像の繰り返しを指定  */              
+  width:165px;                                   /* 横幅のサイズを指定    */
+  height:80px;
+  left:75%;
+  top:25%;
+  z-index:1;
+
+}
+
+.left_3{
+  position:absolute;
+  background-image:url(./left_3.png);             /* 画像のURLを指定       */
+  background-repeat:  no-repeat;                /* 画像の繰り返しを指定  */              
+  width:125px;                                   /* 横幅のサイズを指定    */
+  height:160px;
+  left:70%;
+  top:65%;
+  z-index:1;
 
 }
 

@@ -21,11 +21,12 @@
 
         <div class="remote-streams" id="js-remote-streams">
           <video id="js-local-stream"></video>
+          <div class="a" id="left-arrow"></div>
+          <div class="a" id="right-arrow"></div>    
         </div>
 
         <div>
           <span id="js-room-mode"></span>:
-          <!--<input type="text" placeholder="PeerID" id="js-peer-id">-->
           <select name="PeerID" id="js-peer-id">
             <option>1</option>
             <option>2</option>
@@ -34,7 +35,10 @@
           <button id="js-create-peer">Create PeerID</button>
           <input type="text" placeholder="Room Name" id="js-room-id">
           <button id="js-join-trigger">Join</button>
-          <button id="js-leave-trigger">Leave</button>
+
+          <input type="button" value = "Start"  onclick="startgaze()"/>
+          <input type="button" value = "End"  onclick="endgaze()"/>
+          <a id="downloadCSV" >download</a>
         </div>
         
 
@@ -42,10 +46,14 @@
           <pre class="messages" id="js-messages"></pre>
           <input type="text" id="js-local-text">
           <button id="js-send-trigger">Send</button>
+          <button id="js-leave-trigger">Leave</button>
+
         </div>
 
 
       </div>
+
+
       <p class="meta" id="js-meta"></p>
     </div>
     <script src="//cdn.webrtc.ecl.ntt.com/skyway-latest.js"></script>
@@ -58,10 +66,6 @@
     <!--  ----------------------------------------------------   -->
 
     <canvas id="plotting_canvas" width="500" height="500" style="cursor:crosshair;"></canvas>
-
-    <input type="button" value = "Start" style="position: absolute; right: 0px; top: 0px" onclick="startgaze()"/>
-    <input type="button" value = "End" style="position: absolute; right: 50px; top: 0px" onclick="endgaze()"/>
-    <a id="downloadCSV" style="position: absolute; right: 100px; top: 0px" >download</a>
 
     <script type="text/javascript">
 
@@ -108,6 +112,8 @@
     var timestampArr = new Array();
 
     var mode = 0;
+
+    var gaze_pos = [];
 
 
     

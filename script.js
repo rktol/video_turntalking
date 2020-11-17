@@ -15,6 +15,9 @@ const Peer = window.Peer;
   const meta = document.getElementById('js-meta');
   const sdkSrc = document.querySelector('script[src*=skyway]');
 
+  const left_arrow = document.getElementById('left-arrow');
+  const right_arrow = document.getElementById('right-arrow');
+
   meta.innerText = `
     UA: ${navigator.userAgent}
     SDK: ${sdkSrc ? sdkSrc.src : 'unknown'}
@@ -45,18 +48,16 @@ const Peer = window.Peer;
   createPeer.addEventListener('click', () => {
 
     //eslint-disable-next-line require-atomic-updates
-  const peer = (window.peer = new Peer(peer_Id.value,{
-    key: window.__SKYWAY_KEY__,
-    debug: 3,
-  }));
+    const peer = (window.peer = new Peer(peer_Id.value,{
+      key: window.__SKYWAY_KEY__,
+      debug: 3,
+    }));
 
     peer.on('open',()=>{
       console.log(peer.id);
     });
 
     localVideo.setAttribute('class','stream'+peer_Id.value);
-
-
     peer.on('error', console.error);
   });
 
@@ -90,7 +91,7 @@ const Peer = window.Peer;
       newVideo.playsInline = true;
       // mark peerId to find it later at peerLeave event
       newVideo.setAttribute('data-peer-id', stream.peerId);
-      newVideo.setAttribute('class','stream'+stream.peerId);
+      newVideo.setAttribute('class','local'+peer.id+'_stream'+stream.peerId);
       remoteVideos.append(newVideo);
       await newVideo.play().catch(console.error);
     });
@@ -98,7 +99,73 @@ const Peer = window.Peer;
     room.on('data', ({ data, src }) => {
       // Show a message sent to the room and who sent
       messages.textContent += `${src}: ${data}\n`;
-    });
+
+      console.log(peer.id);
+
+      switch (peer.id){
+        case '1':
+          if(data[0] == 2){
+            if(data[1] == 3){
+              left_arrow.className = "left_3";
+            }else if(data[1] == 2){
+              left_arrow.className = "left_2";
+            }else{
+              left_arrow.className = "a";
+            }
+          }else if(data[0] == 3){
+            if(data[1] == 2){
+              right_arrow.className="right_2";
+            }else if(data[1] == 3){
+              right_arrow.className="right_3";
+            }else{
+              right_arrow.className="a";
+            }
+          }
+          break;
+        case '2':
+          if(data[0] == 3){
+            if(data[1] == 3){
+              left_arrow.className = "left_3";
+            }else if(data[1] == 2){
+              left_arrow.className = "left_2";
+            }else{
+              left_arrow.className = "a";
+            }
+          }else if(data[0] == 1){
+            if(data[1] == 2){
+              right_arrow.className="right_2";
+            }else if(data[1] == 3){
+              right_arrow.className="right_3";
+            }else{
+              right_arrow.className="a";
+            }
+          }
+          break;
+        case '3':
+          if(data[0] == 1){
+            if(data[1] == 3){
+              left_arrow.className = "left_3";
+            }else if(data[1] == 2){
+              left_arrow.className = "left_2";
+            }else{
+              left_arrow.className = "a";
+            }
+          }else if(data[0] == 2){
+            if(data[1] == 2){
+              right_arrow.className="right_2";
+            }else if(data[1] == 3){
+              right_arrow.className="right_3";
+            }else{
+              right_arrow.className="a";
+            }
+          }
+          break;
+        default:
+        }
+
+        console.log(right_arrow.className);
+        console.log(left_arrow.className);
+      });
 
     // for closing room members
     room.on('peerLeave', peerId => {
@@ -151,8 +218,8 @@ const Peer = window.Peer;
       ydot = data.y;
 
 
-      if(ydot < 350){
-        if(xdot < 975 && xdot >= 325){
+      if(ydot > 550){
+        if(xdot < 800 && xdot >= 500){
           if(state != 1){
 
             if(mode == 1){
@@ -169,15 +236,42 @@ const Peer = window.Peer;
             timestampArr.push(timestamp);
             console.log(timestampArr,":",statesArr);
 
-            room.send("Looking1");
+            gaze_pos[0] = peer.id;
+            gaze_pos[1] = 1;
+
+            room.send(gaze_pos);
             messages.textContent += `${peer.id}:"Looking1"\n`;
 
           }
 
           }
+        }else{
+          if(state != 0){
+
+            if(mode == 1){
+
+            if(Date.now){
+            var now_seconds = Date.now();
+            }
+
+            timestamp = now_seconds - base_seconds;
+
+            state = 0;
+
+            statesArr.push(state);
+            timestampArr.push(timestamp);
+            console.log(timestampArr,":",statesArr);
+
+            gaze_pos[0] = peer.id;
+            gaze_pos[1] = 1;
+
+            room.send(gaze_pos);
+            messages.textContent += `${peer.id}:"Looking1"\n`;
+          }
         }
-      }else{
-        if(xdot < 650){
+      }
+      }else if(ydot <= 550 && ydot > 50){
+        if(xdot < 650 && xdot > 50){
           if(state != 2){
             if(mode == 1){
 
@@ -193,11 +287,14 @@ const Peer = window.Peer;
             timestampArr.push(timestamp);
             console.log(timestampArr,":",statesArr);
 
-            room.send("Looking2");
+            gaze_pos[0] = peer.id;
+            gaze_pos[1] = 2;
+
+            room.send(gaze_pos);
             messages.textContent += `${peer.id}: Looking2\n`;
           }
           }
-        }else{
+        }else if(xdot >=650 && xdot < 1250){
           if(state != 3){
 
             if(mode == 1){
@@ -213,11 +310,62 @@ const Peer = window.Peer;
             timestampArr.push(timestamp);
             console.log(timestampArr,":",statesArr);
 
-            room.send("Looking3");
+            gaze_pos[0] = peer.id;
+            gaze_pos[1] = 3;
+
+            room.send(gaze_pos);
             messages.textContent += `${peer.id}: Looking3\n`;
           }
         }
+        }else{
+          if(state != 0){
+
+            if(mode == 1){
+
+            if(Date.now){
+            var now_seconds = Date.now();
+            }
+
+            timestamp = now_seconds - base_seconds;
+
+            state = 0;
+
+            statesArr.push(state);
+            timestampArr.push(timestamp);
+            console.log(timestampArr,":",statesArr);
+
+            gaze_pos[0] = peer.id;
+            gaze_pos[1] = 1;
+
+            room.send(gaze_pos);
+            messages.textContent += `${peer.id}:"Looking1"\n`;
+          }
         }
+        }
+      }else{
+        if(state != 0){
+
+          if(mode == 1){
+
+          if(Date.now){
+          var now_seconds = Date.now();
+          }
+
+          timestamp = now_seconds - base_seconds;
+
+          state = 0;
+
+          statesArr.push(state);
+          timestampArr.push(timestamp);
+          console.log(timestampArr,":",statesArr);
+
+          gaze_pos[0] = peer.id;
+          gaze_pos[1] = 1;
+
+          room.send(gaze_pos);
+          messages.textContent += `${peer.id}:"Looking1"\n`;
+        }
+      }
       }
 
 
