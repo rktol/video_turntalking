@@ -163,7 +163,7 @@ video {
   width:165px;                                  /* 横幅のサイズを指定    */
   height:80px;
   left:79%;                                    /* leftとtopを変える */
-  top:25%;
+  top:20%;
   z-index:1;
 }
 
@@ -186,7 +186,7 @@ video {
   width:165px;                                   /* 横幅のサイズを指定    */
   height:80px;
   left:75%;
-  top:25%;
+  top:30%;
   z-index:1;
 
 }
