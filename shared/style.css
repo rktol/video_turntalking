@@ -102,7 +102,61 @@ video {
   z-index:0;
 }
 
-.local1_stream2{
+.local1_stream2_0{
+  position: absolute;
+  width:65%;
+  height:30%;
+  left:25%;
+  top:0;
+  z-index:0;
+}
+
+.local2_stream3_0{
+  position: absolute;
+  width:65%;
+  height:30%;
+  left:25%;
+  top:0;
+  z-index:0;
+}
+
+.local3_stream1_0{
+  position: absolute;
+  width:65%;
+  height:30%;
+  left:25%;
+  top:0;
+  z-index:0;
+}
+
+.local1_stream2_1{
+  position: absolute;
+  width:65%;
+  height:45%;
+  left:25%;
+  top:0;
+  z-index:0;
+}
+
+.local2_stream3_1{
+  position: absolute;
+  width:65%;
+  height:45%;
+  left:25%;
+  top:0;
+  z-index:0;
+}
+
+.local3_stream1_1{
+  position: absolute;
+  width:65%;
+  height:45%;
+  left:25%;
+  top:0;
+  z-index:0;
+}
+
+.local1_stream2_2{
   position: absolute;
   width:65%;
   height:65%;
@@ -111,7 +165,7 @@ video {
   z-index:0;
 }
 
-.local2_stream3{
+.local2_stream3_2{
   position: absolute;
   width:65%;
   height:65%;
@@ -120,7 +174,7 @@ video {
   z-index:0;
 }
 
-.local3_stream1{
+.local3_stream1_2{
   position: absolute;
   width:65%;
   height:65%;
@@ -129,7 +183,63 @@ video {
   z-index:0;
 }
 
-.local1_stream3{
+
+
+.local1_stream3_0{
+  position:absolute;
+  width:65%;
+  height:30%;
+  left:75%;
+  top:0;
+  z-index:0;
+}
+
+.local2_stream1_0{
+  position:absolute;
+  width:65%;
+  height:30%;
+  left:75%;
+  top:0;
+  z-index:0;
+}
+
+.local3_stream2_0{
+  position:absolute;
+  width:65%;
+  height:30%;
+  left:75%;
+  top:0;
+  z-index:0;
+}
+
+.local1_stream3_1{
+  position:absolute;
+  width:65%;
+  height:45%;
+  left:75%;
+  top:0;
+  z-index:0;
+}
+
+.local2_stream1_1{
+  position:absolute;
+  width:65%;
+  height:45%;
+  left:75%;
+  top:0;
+  z-index:0;
+}
+
+.local3_stream2_1{
+  position:absolute;
+  width:65%;
+  height:45%;
+  left:75%;
+  top:0;
+  z-index:0;
+}
+
+.local1_stream3_2{
   position:absolute;
   width:65%;
   height:65%;
@@ -138,7 +248,7 @@ video {
   z-index:0;
 }
 
-.local2_stream1{
+.local2_stream1_2{
   position:absolute;
   width:65%;
   height:65%;
@@ -147,7 +257,7 @@ video {
   z-index:0;
 }
 
-.local3_stream2{
+.local3_stream2_2{
   position:absolute;
   width:65%;
   height:65%;

@@ -18,6 +18,8 @@ const Peer = window.Peer;
   const left_arrow = document.getElementById('left-arrow');
   const right_arrow = document.getElementById('right-arrow');
 
+  var video_element;
+
   meta.innerText = `
     UA: ${navigator.userAgent}
     SDK: ${sdkSrc ? sdkSrc.src : 'unknown'}
@@ -91,7 +93,7 @@ const Peer = window.Peer;
       newVideo.playsInline = true;
       // mark peerId to find it later at peerLeave event
       newVideo.setAttribute('data-peer-id', stream.peerId);
-      newVideo.setAttribute('class','local'+peer.id+'_stream'+stream.peerId);
+      newVideo.setAttribute('class','local'+peer.id+'_stream'+stream.peerId+'_0');
       remoteVideos.append(newVideo);
       await newVideo.play().catch(console.error);
     });
@@ -99,6 +101,8 @@ const Peer = window.Peer;
     room.on('data', ({ data, src }) => {
       // Show a message sent to the room and who sent
       messages.textContent += `${src}: ${data}\n`;
+      size2[0]=0;
+      size3[0]=0;
 
       console.log(peer.id);
 
@@ -109,6 +113,7 @@ const Peer = window.Peer;
               left_arrow.className = "left_3";
             }else if(data[1] == 2){
               left_arrow.className = "left_2";
+              size3[0] = 1;
             }else{
               left_arrow.className = "a";
             }
@@ -117,6 +122,7 @@ const Peer = window.Peer;
               right_arrow.className="right_2";
             }else if(data[1] == 3){
               right_arrow.className="right_3";
+              size2[0]=1;
             }else{
               right_arrow.className="a";
             }
@@ -128,6 +134,7 @@ const Peer = window.Peer;
               left_arrow.className = "left_3";
             }else if(data[1] == 2){
               left_arrow.className = "left_2";
+              size3[0] = 1;
             }else{
               left_arrow.className = "a";
             }
@@ -136,6 +143,7 @@ const Peer = window.Peer;
               right_arrow.className="right_2";
             }else if(data[1] == 3){
               right_arrow.className="right_3";
+              size2[0]=1;
             }else{
               right_arrow.className="a";
             }
@@ -147,6 +155,7 @@ const Peer = window.Peer;
               left_arrow.className = "left_3";
             }else if(data[1] == 2){
               left_arrow.className = "left_2";
+              size3[0] = 1;
             }else{
               left_arrow.className = "a";
             }
@@ -155,6 +164,7 @@ const Peer = window.Peer;
               right_arrow.className="right_2";
             }else if(data[1] == 3){
               right_arrow.className="right_3";
+              size2[0]=1;
             }else{
               right_arrow.className="a";
             }
@@ -162,6 +172,117 @@ const Peer = window.Peer;
           break;
         default:
         }
+
+
+        switch(size2[0] + size2[1]){
+          case 1:
+            switch(peer.id){
+              case '1':
+                remote2 = remoteVideos.querySelector(`[data-peer-id="2"]`);
+                remote2.className = "local1_stream2_1";
+                break;
+              case '2':
+                remote2 = remoteVideos.querySelector(`[data-peer-id="3"]`);
+                remote2.className = "local2_stream3_1";
+                break;
+              case '3':
+                remote2 = remoteVideos.querySelector(`[data-peer-id="1"]`);
+                remote2.className = "local3_stream1_1";
+                break;
+            }
+            console.log(size2[0]+size2[1]);
+            break;
+            case 2:
+              switch(peer.id){
+                case '1':
+                  remote2 = remoteVideos.querySelector(`[data-peer-id="2"]`);
+                  remote2.className = "local1_stream2_2";
+                  break;
+                case '2':
+                  remote2 = remoteVideos.querySelector(`[data-peer-id="3"]`);
+                  remote2.className = "local2_stream3_2";
+                  break;
+                case '3':
+                  remote2 = remoteVideos.querySelector(`[data-peer-id="1"]`);
+                  remote2.className = "local3_stream1_2";
+                  break;
+              }
+              console.log(size2[0]+size2[1]);
+              break;
+          default:
+            switch(peer.id){
+              case '1':
+                remote2 = remoteVideos.querySelector(`[data-peer-id="2"]`);
+                remote2.className = "local1_stream2_0";
+                break;
+              case '2':
+                remote2 = remoteVideos.querySelector(`[data-peer-id="3"]`);
+                remote2.className = "local2_stream3_0";
+                break;
+              case '3':
+                remote2 = remoteVideos.querySelector(`[data-peer-id="1"]`);
+                remote2.className = "local3_stream1_0";
+                break;
+            }
+            console.log(size2[0]+size2[1]);
+            break;
+        }
+
+        switch(size3[0] +size3[1]){
+          case 1:
+            switch(peer.id){
+              case '1':
+                remote3 = remoteVideos.querySelector(`[data-peer-id="3"]`);
+                remote3.className = "local1_stream3_1";
+                break;
+              case '2':
+                remote3 = remoteVideos.querySelector(`[data-peer-id="1"]`);
+                remote3.className = "local2_stream1_1";
+                break;
+              case '3':
+                remote3 = remoteVideos.querySelector(`[data-peer-id="2"]`);
+                remote3.className = "local3_stream2_1";
+                break;
+            }
+            console.log(remote3);
+            break;
+            case 2:
+              switch(peer.id){
+                case '1':
+                  remote3 = remoteVideos.querySelector(`[data-peer-id="3"]`);
+                  remote3.className = "local1_stream3_2";
+                  break;
+                case '2':
+                  remote3 = remoteVideos.querySelector(`[data-peer-id="1"]`);
+                  remote3.className = "local2_stream1_2";
+                  break;
+                case '3':
+                  remote3 = remoteVideos.querySelector(`[data-peer-id="2"]`);
+                  remote3.className = "local3_stream2_2";
+                  break;
+              }
+              console.log(remote3);
+              break;
+          default:
+            switch(peer.id){
+              case '1':
+                remote3 = remoteVideos.querySelector(`[data-peer-id="3"]`);
+                remote3.className = "local1_stream3_0";
+                break;
+              case '2':
+                remote3 = remoteVideos.querySelector(`[data-peer-id="1"]`);
+                remote3.className = "local2_stream1_0";
+                break;
+              case '3':
+                remote3 = remoteVideos.querySelector(`[data-peer-id="2"]`);
+                remote3.className = "local3_stream2_0";
+                break;
+            }
+            console.log(remote3);
+            break;
+        }
+
+
 
         console.log(right_arrow.className);
         console.log(left_arrow.className);
@@ -270,6 +391,86 @@ const Peer = window.Peer;
           }
         }
       }
+
+      size2[1] = 0;
+      size3[1] = 0;
+      switch(size2[0] + size2[1]){
+        case 1:
+          switch(peer.id){
+            case '1':
+              remote2 = remoteVideos.querySelector(`[data-peer-id="2"]`);
+              remote2.className = "local1_stream2_1";
+              break;
+            case '2':
+              remote2 = remoteVideos.querySelector(`[data-peer-id="3"]`);
+              remote2.className = "local2_stream3_1";
+              break;
+            case '3':
+              remote2 = remoteVideos.querySelector(`[data-peer-id="1"]`);
+              remote2.className = "local3_stream1_1";
+              break;
+          }
+          console.log(size2[0]+size2[1]);
+          break;
+        default:
+          switch(peer.id){
+            case '1':
+              remote2 = remoteVideos.querySelector(`[data-peer-id="2"]`);
+              remote2.className = "local1_stream2_0";
+              break;
+            case '2':
+              remote2 = remoteVideos.querySelector(`[data-peer-id="3"]`);
+              remote2.className = "local2_stream3_0";
+              break;
+            case '3':
+              remote2 = remoteVideos.querySelector(`[data-peer-id="1"]`);
+              remote2.className = "local3_stream1_0";
+              break;
+          }
+          console.log(size2[0]+size2[1]);
+          break;
+      }
+
+
+
+      switch(size3[0] +size3[1]){
+        case 1:
+          switch(peer.id){
+            case '1':
+              remote3 = remoteVideos.querySelector(`[data-peer-id="3"]`);
+              remote3.className = "local1_stream3_1";
+              break;
+            case '2':
+              remote3 = remoteVideos.querySelector(`[data-peer-id="1"]`);
+              remote3.className = "local2_stream1_1";
+              break;
+            case '3':
+              remote3 = remoteVideos.querySelector(`[data-peer-id="2"]`);
+              remote3.className = "local3_stream2_1";
+              break;
+          }
+          console.log(remote3);
+          break;
+        default:
+          switch(peer.id){
+            case '1':
+              remote3 = remoteVideos.querySelector(`[data-peer-id="3"]`);
+              remote3.className = "local1_stream3_0";
+              break;
+            case '2':
+              remote3 = remoteVideos.querySelector(`[data-peer-id="1"]`);
+              remote3.className = "local2_stream1_0";
+              break;
+            case '3':
+              remote3 = remoteVideos.querySelector(`[data-peer-id="2"]`);
+              remote3.className = "local3_stream2_0";
+              break;
+          }
+          console.log(remote3);
+          break;
+      }
+
+
       }else if(ydot <= 550 && ydot > 50){
         if(xdot < 650 && xdot > 50){
           if(state != 2){
@@ -289,6 +490,85 @@ const Peer = window.Peer;
 
             gaze_pos[0] = peer.id;
             gaze_pos[1] = 2;
+
+            size2[1] = 1;
+            size3[1] = 0;
+            switch(size2[0] +size2[1]){
+              case 1:
+                switch(peer.id){
+                  case '1':
+                    remote2 = remoteVideos.querySelector(`[data-peer-id="2"]`);
+                    remote2.className = "local1_stream2_1";
+                    break;
+                  case '2':
+                    remote2 = remoteVideos.querySelector(`[data-peer-id="3"]`);
+                    remote2.className = "local2_stream3_1";
+                    break;
+                  case '3':
+                    remote2 = remoteVideos.querySelector(`[data-peer-id="1"]`);
+                    remote2.className = "local3_stream1_1";
+                    break;
+                }
+                console.log(size2[0]+size2[1]);
+                break;
+              case 2:
+                switch(peer.id){
+                  case '1':
+                    remote2 = remoteVideos.querySelector(`[data-peer-id="2"]`);
+                    remote2.className = "local1_stream2_2";
+                    break;
+                  case '2':
+                    remote2 = remoteVideos.querySelector(`[data-peer-id="3"]`);
+                    remote2.className = "local2_stream3_2";
+                    break;
+                  case '3':
+                    remote2 = remoteVideos.querySelector(`[data-peer-id="1"]`);
+                    remote2.className = "local3_stream1_2";
+                    break;
+                }
+                console.log(remote3);
+                break;
+            }
+      
+      
+      
+            switch(size3[0] +size3[1]){
+              case 1:
+                switch(peer.id){
+                  case '1':
+                    remote3 = remoteVideos.querySelector(`[data-peer-id="3"]`);
+                    remote3.className = "local1_stream3_1";
+                    break;
+                  case '2':
+                    remote3 = remoteVideos.querySelector(`[data-peer-id="1"]`);
+                    remote3.className = "local2_stream1_1";
+                    break;
+                  case '3':
+                    remote3 = remoteVideos.querySelector(`[data-peer-id="2"]`);
+                    remote3.className = "local3_stream2_1";
+                    break;
+                }
+                console.log(remote3);
+                break;
+              default:
+                switch(peer.id){
+                  case '1':
+                    remote3 = remoteVideos.querySelector(`[data-peer-id="3"]`);
+                    remote3.className = "local1_stream3_0";
+                    break;
+                  case '2':
+                    remote3 = remoteVideos.querySelector(`[data-peer-id="1"]`);
+                    remote3.className = "local2_stream1_0";
+                    break;
+                  case '3':
+                    remote3 = remoteVideos.querySelector(`[data-peer-id="2"]`);
+                    remote3.className = "local3_stream2_0";
+                    break;
+                }
+                console.log(remote3);
+                break;
+            }
+      
 
             room.send(gaze_pos);
             messages.textContent += `${peer.id}: Looking2\n`;
@@ -313,6 +593,85 @@ const Peer = window.Peer;
             gaze_pos[0] = peer.id;
             gaze_pos[1] = 3;
 
+            size2[1] = 0;
+            size3[1] = 1;
+            switch(size2[0] +size2[1]){
+              case 1:
+                switch(peer.id){
+                  case '1':
+                    remote2 = remoteVideos.querySelector(`[data-peer-id="2"]`);
+                    remote2.className = "local1_stream2_1";
+                    break;
+                  case '2':
+                    remote2 = remoteVideos.querySelector(`[data-peer-id="3"]`);
+                    remote2.className = "local2_stream3_1";
+                    break;
+                  case '3':
+                    remote2 = remoteVideos.querySelector(`[data-peer-id="1"]`);
+                    remote2.className = "local3_stream1_1";
+                    break;
+                }
+                console.log(size2[0]+size2[1]);
+                break;
+              default:
+                switch(peer.id){
+                  case '1':
+                    remote2 = remoteVideos.querySelector(`[data-peer-id="2"]`);
+                    remote2.className = "local1_stream2_0";
+                    break;
+                  case '2':
+                    remote2 = remoteVideos.querySelector(`[data-peer-id="3"]`);
+                    remote2.className = "local2_stream3_0";
+                    break;
+                  case '3':
+                    remote2 = remoteVideos.querySelector(`[data-peer-id="1"]`);
+                    remote2.className = "local3_stream1_0";
+                    break;
+                }
+                console.log(size2[0]+size2[1]);
+                break;
+            }
+      
+      
+      
+            switch(size3[0] +size3[1]){
+              case 1:
+                switch(peer.id){
+                  case '1':
+                    remote3 = remoteVideos.querySelector(`[data-peer-id="3"]`);
+                    remote3.className = "local1_stream3_1";
+                    break;
+                  case '2':
+                    remote3 = remoteVideos.querySelector(`[data-peer-id="1"]`);
+                    remote3.className = "local2_stream1_1";
+                    break;
+                  case '3':
+                    remote3 = remoteVideos.querySelector(`[data-peer-id="2"]`);
+                    remote3.className = "local3_stream2_1";
+                    break;
+                }
+                console.log(remote3);
+                break;
+              case 2:
+                switch(peer.id){
+                  case '1':
+                    remote3 = remoteVideos.querySelector(`[data-peer-id="3"]`);
+                    remote3.className = "local1_stream3_2";
+                    break;
+                  case '2':
+                    remote3 = remoteVideos.querySelector(`[data-peer-id="1"]`);
+                    remote3.className = "local2_stream1_2";
+                    break;
+                  case '3':
+                    remote3 = remoteVideos.querySelector(`[data-peer-id="2"]`);
+                    remote3.className = "local3_stream2_2";
+                    break;
+                }
+                console.log(remote3);
+                break;
+            }
+      
+
             room.send(gaze_pos);
             messages.textContent += `${peer.id}: Looking3\n`;
           }
@@ -336,6 +695,82 @@ const Peer = window.Peer;
 
             gaze_pos[0] = peer.id;
             gaze_pos[1] = 1;
+
+            size2[1] = 0;
+            size3[1] = 0;
+            switch(size2[0] +size2[1]){
+              case 1:
+                switch(peer.id){
+                  case '1':
+                    remote2 = remoteVideos.querySelector(`[data-peer-id="2"]`);
+                    remote2.className = "local1_stream2_1";
+                    break;
+                  case '2':
+                    remote2 = remoteVideos.querySelector(`[data-peer-id="3"]`);
+                    remote2.className = "local2_stream3_1";
+                    break;
+                  case '3':
+                    remote2 = remoteVideos.querySelector(`[data-peer-id="1"]`);
+                    remote2.className = "local3_stream1_1";
+                    break;
+                }
+                break;
+              default:
+                switch(peer.id){
+                  case '1':
+                    remote2 = remoteVideos.querySelector(`[data-peer-id="2"]`);
+                    remote2.className = "local1_stream2_0";
+                    break;
+                  case '2':
+                    remote2 = remoteVideos.querySelector(`[data-peer-id="3"]`);
+                    remote2.className = "local2_stream3_0";
+                    break;
+                  case '3':
+                    remote2 = remoteVideos.querySelector(`[data-peer-id="1"]`);
+                    remote2.className = "local3_stream1_0";
+                    break;
+                }
+                break;
+            }
+      
+      
+      
+            switch(size3[0] +size3[1]){
+              case 1:
+                switch(peer.id){
+                  case '1':
+                    remote3 = remoteVideos.querySelector(`[data-peer-id="3"]`);
+                    remote3.className = "local1_stream3_1";
+                    break;
+                  case '2':
+                    remote3 = remoteVideos.querySelector(`[data-peer-id="1"]`);
+                    remote3.className = "local2_stream1_1";
+                    break;
+                  case '3':
+                    remote3 = remoteVideos.querySelector(`[data-peer-id="2"]`);
+                    remote3.className = "local3_stream2_1";
+                    break;
+                }
+                break;
+              default:
+                switch(peer.id){
+                  case '1':
+                    remote3 = remoteVideos.querySelector(`[data-peer-id="3"]`);
+                    remote3.className = "local1_stream3_0";
+                    break;
+                  case '2':
+                    remote3 = remoteVideos.querySelector(`[data-peer-id="1"]`);
+                    remote3.className = "local2_stream1_0";
+                    break;
+                  case '3':
+                    remote3 = remoteVideos.querySelector(`[data-peer-id="2"]`);
+                    remote3.className = "local3_stream2_0";
+                    break;
+                }
+                break;
+            }
+      
+
 
             room.send(gaze_pos);
             messages.textContent += `${peer.id}:"Looking1"\n`;
@@ -362,14 +797,86 @@ const Peer = window.Peer;
           gaze_pos[0] = peer.id;
           gaze_pos[1] = 1;
 
+          size2[1] = 0;
+          size3[1] = 0;
+          switch(size2[0] +size2[1]){
+            case 1:
+              switch(peer.id){
+                case '1':
+                  remote2 = remoteVideos.querySelector(`[data-peer-id="2"]`);
+                  remote2.className = "local1_stream2_1";
+                  break;
+                case '2':
+                  remote2 = remoteVideos.querySelector(`[data-peer-id="3"]`);
+                  remote2.className = "local2_stream3_1";
+                  break;
+                case '3':
+                  remote2 = remoteVideos.querySelector(`[data-peer-id="1"]`);
+                  remote2.className = "local3_stream1_1";
+                  break;
+              }
+              break;
+
+            default:
+              switch(peer.id){
+                case '1':
+                  remote2 = remoteVideos.querySelector(`[data-peer-id="2"]`);
+                  remote2.className = "local1_stream2_0";
+                  break;
+                case '2':
+                  remote2 = remoteVideos.querySelector(`[data-peer-id="3"]`);
+                  remote2.className = "local2_stream3_0";
+                  break;
+                case '3':
+                  remote2 = remoteVideos.querySelector(`[data-peer-id="1"]`);
+                  remote2.className = "local3_stream1_0";
+                  break;
+              }
+              break;
+          }
+    
+    
+    
+          switch(size3[0] +size3[1]){
+            case 1:
+              switch(peer.id){
+                case '1':
+                  remote3 = remoteVideos.querySelector(`[data-peer-id="3"]`);
+                  remote3.className = "local1_stream3_1";
+                  break;
+                case '2':
+                  remote3 = remoteVideos.querySelector(`[data-peer-id="1"]`);
+                  remote3.className = "local2_stream1_1";
+                  break;
+                case '3':
+                  remote3 = remoteVideos.querySelector(`[data-peer-id="2"]`);
+                  remote3.className = "local3_stream2_1";
+                  break;
+              }
+              break;
+            default:
+              switch(peer.id){
+                case '1':
+                  remote3 = remoteVideos.querySelector(`[data-peer-id="3"]`);
+                  remote3.className = "local1_stream3_0";
+                  break;
+                case '2':
+                  remote3 = remoteVideos.querySelector(`[data-peer-id="1"]`);
+                  remote3.className = "local2_stream1_0";
+                  break;
+                case '3':
+                  remote3 = remoteVideos.querySelector(`[data-peer-id="2"]`);
+                  remote3.className = "local3_stream2_0";
+                  break;
+              }
+              break;
+          }
+ 
           room.send(gaze_pos);
           messages.textContent += `${peer.id}:"Looking1"\n`;
         }
       }
       }
-
-
-
         })
         .begin();
   });
