@@ -13,6 +13,8 @@ const Peer = window.Peer;
   const sendTrigger = document.getElementById('js-send-trigger');
   const messages = document.getElementById('js-messages');
   const meta = document.getElementById('js-meta');
+  const methodChange = document.getElementById('js-change-method');
+  const method_mode = document.getElementById('js-method-mode');
   const sdkSrc = document.querySelector('script[src*=skyway]');
 
   const left_arrow = document.getElementById('left-arrow');
@@ -63,6 +65,34 @@ const Peer = window.Peer;
     peer.on('error', console.error);
   });
 
+  methodChange.addEventListener('click',() => {
+    left_arrow.className = "a";
+    right_arrow.className = "a";
+    switch(peer.id){
+      case '1':
+        remote2 = remoteVideos.querySelector(`[data-peer-id="2"]`);
+        remote2.className = "local1_stream2_2";
+        remote3 = remoteVideos.querySelector(`[data-peer-id="3"]`);
+        remote3.className = "local1_stream3_2";
+        break;
+      case '2':
+        remote2 = remoteVideos.querySelector(`[data-peer-id="3"]`);
+        remote2.className = "local2_stream3_2";
+        remote3 = remoteVideos.querySelector(`[data-peer-id="1"]`);
+        remote3.className = "local2_stream1_2";
+        break;
+      case '3':
+        remote2 = remoteVideos.querySelector(`[data-peer-id="1"]`);
+        remote2.className = "local3_stream1_2";
+        remote3 = remoteVideos.querySelector(`[data-peer-id="2"]`);
+        remote3.className = "local3_stream2_2";
+        break;
+    }
+    MethodMode = method_mode.value;
+    console.log(MethodMode);
+
+  })
+
 
   // Register join handler
   joinTrigger.addEventListener('click', () => {
@@ -105,6 +135,7 @@ const Peer = window.Peer;
       size3[0]=0;
 
       console.log(peer.id);
+      if(MethodMode == 2){
 
       switch (peer.id){
         case '1':
@@ -172,8 +203,10 @@ const Peer = window.Peer;
           break;
         default:
         }
+      }
 
 
+      if(MethodMode == 3){
         switch(size2[0] + size2[1]){
           case 1:
             switch(peer.id){
@@ -281,6 +314,7 @@ const Peer = window.Peer;
             console.log(remote3);
             break;
         }
+      }
 
 
 
@@ -394,6 +428,7 @@ const Peer = window.Peer;
 
       size2[1] = 0;
       size3[1] = 0;
+      if(MethodMode == 3){
       switch(size2[0] + size2[1]){
         case 1:
           switch(peer.id){
@@ -469,6 +504,7 @@ const Peer = window.Peer;
           console.log(remote3);
           break;
       }
+    }
 
 
       }else if(ydot <= 550 && ydot > 50){
@@ -493,6 +529,7 @@ const Peer = window.Peer;
 
             size2[1] = 1;
             size3[1] = 0;
+            if(MethodMode == 3){
             switch(size2[0] +size2[1]){
               case 1:
                 switch(peer.id){
@@ -568,6 +605,7 @@ const Peer = window.Peer;
                 console.log(remote3);
                 break;
             }
+          }
       
 
             room.send(gaze_pos);
@@ -595,6 +633,7 @@ const Peer = window.Peer;
 
             size2[1] = 0;
             size3[1] = 1;
+            if(MethodMode == 3){
             switch(size2[0] +size2[1]){
               case 1:
                 switch(peer.id){
@@ -670,6 +709,7 @@ const Peer = window.Peer;
                 console.log(remote3);
                 break;
             }
+          }
       
 
             room.send(gaze_pos);
@@ -698,6 +738,7 @@ const Peer = window.Peer;
 
             size2[1] = 0;
             size3[1] = 0;
+            if(MethodMode == 3){
             switch(size2[0] +size2[1]){
               case 1:
                 switch(peer.id){
@@ -769,6 +810,7 @@ const Peer = window.Peer;
                 }
                 break;
             }
+          }
       
 
 
@@ -799,6 +841,7 @@ const Peer = window.Peer;
 
           size2[1] = 0;
           size3[1] = 0;
+          if(MethodMode == 3){
           switch(size2[0] +size2[1]){
             case 1:
               switch(peer.id){
@@ -871,6 +914,7 @@ const Peer = window.Peer;
               }
               break;
           }
+        }
  
           room.send(gaze_pos);
           messages.textContent += `${peer.id}:"Looking1"\n`;

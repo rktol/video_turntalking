@@ -38,6 +38,13 @@
 
           <input type="button" value = "Start"  onclick="startgaze()"/>
           <input type="button" value = "End"  onclick="endgaze()"/>
+          <hr>
+          <select name="method_mode" id="js-method-mode">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+          </select>
+          <button id="js-change-method">Change Method</button>
           <a id="downloadCSV" >download</a>
         </div>
         
@@ -68,6 +75,8 @@
     <canvas id="plotting_canvas" width="500" height="500" style="cursor:crosshair;"></canvas>
 
     <script type="text/javascript">
+
+    var MethodMode;
 
 
     var gazePoints = [];
