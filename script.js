@@ -61,13 +61,14 @@ const Peer = window.Peer;
       console.log(peer.id);
     });
 
-    localVideo.setAttribute('class','stream'+peer_Id.value);
+    localVideo.setAttribute('class','stream'+peer_Id.value+'_2');
     peer.on('error', console.error);
   });
 
   methodChange.addEventListener('click',() => {
     left_arrow.className = "a";
     right_arrow.className = "a";
+    localVideo.className = 'stream'+peer.id+'_2';
     switch(peer.id){
       case '1':
         remote2 = remoteVideos.querySelector(`[data-peer-id="2"]`);
@@ -131,8 +132,6 @@ const Peer = window.Peer;
     room.on('data', ({ data, src }) => {
       // Show a message sent to the room and who sent
       messages.textContent += `${src}: ${data}\n`;
-      size2[0]=0;
-      size3[0]=0;
 
       console.log(peer.id);
       if(MethodMode == 2){
@@ -144,7 +143,6 @@ const Peer = window.Peer;
               left_arrow.className = "left_3";
             }else if(data[1] == 2){
               left_arrow.className = "left_2";
-              size3[0] = 1;
             }else{
               left_arrow.className = "a";
             }
@@ -153,7 +151,6 @@ const Peer = window.Peer;
               right_arrow.className="right_2";
             }else if(data[1] == 3){
               right_arrow.className="right_3";
-              size2[0]=1;
             }else{
               right_arrow.className="a";
             }
@@ -165,7 +162,6 @@ const Peer = window.Peer;
               left_arrow.className = "left_3";
             }else if(data[1] == 2){
               left_arrow.className = "left_2";
-              size3[0] = 1;
             }else{
               left_arrow.className = "a";
             }
@@ -174,7 +170,6 @@ const Peer = window.Peer;
               right_arrow.className="right_2";
             }else if(data[1] == 3){
               right_arrow.className="right_3";
-              size2[0]=1;
             }else{
               right_arrow.className="a";
             }
@@ -186,7 +181,6 @@ const Peer = window.Peer;
               left_arrow.className = "left_3";
             }else if(data[1] == 2){
               left_arrow.className = "left_2";
-              size3[0] = 1;
             }else{
               left_arrow.className = "a";
             }
@@ -195,7 +189,6 @@ const Peer = window.Peer;
               right_arrow.className="right_2";
             }else if(data[1] == 3){
               right_arrow.className="right_3";
-              size2[0]=1;
             }else{
               right_arrow.className="a";
             }
@@ -203,10 +196,78 @@ const Peer = window.Peer;
           break;
         default:
         }
-      }
+      }else if(MethodMode == 3){
+
+        // -------------------------rooms' gaze point -> size2[1] and size3[1]
+        switch (peer.id){
+          case '1':
+            if(data[0] == 2){
+              if(data[1] == 3){
+                size2[0] = 0;
+                size2[2] = 1;
+              }else if(data[1] == 2){
+                size3[0] = 1;
+                size3[2] = 0;
+              }else{
+              }
+            }else if(data[0] == 3){
+              if(data[1] == 2){
+                size3[0] = 0;
+                size3[2] = 1;
+              }else if(data[1] == 3){
+                size2[0] = 1;
+                size2[2] = 0;
+              }else{
+              }
+            }
+            break;
+          case '2':
+            if(data[0] == 3){
+              if(data[1] == 3){
+                size2[0] = 0;
+                size2[2] = 1;
+              }else if(data[1] == 2){
+                size3[0] = 1;
+                size3[2] = 0;
+              }else{
+              }
+            }else if(data[0] == 1){
+              if(data[1] == 2){
+                size3[0] = 0;
+                size3[2] = 1;
+              }else if(data[1] == 3){
+                size2[0] = 1;
+                size2[2] = 0;
+              }else{
+              }
+            }
+            break;
+          case '3':
+            if(data[0] == 1){
+              if(data[1] == 3){
+                size2[0] = 0;
+                size2[2] = 1;
+              }else if(data[1] == 2){
+                size3[0] = 1;
+                size3[2] = 0;
+              }else{
+              }
+            }else if(data[0] == 2){
+              if(data[1] == 2){
+                size3[0] = 0;
+                size3[2] = 1;
+              }else if(data[1] == 3){
+                size2[0] = 1;
+                size2[2] = 0;
+              }else{
+              }
+            }
+            break;
+          default:
+          }
 
 
-      if(MethodMode == 3){
+        // -------------------------stream size change function----------------------
         switch(size2[0] + size2[1]){
           case 1:
             switch(peer.id){
@@ -312,6 +373,19 @@ const Peer = window.Peer;
                 break;
             }
             console.log(remote3);
+            break;
+        }
+
+
+        switch(size2[2] + size3[2]){
+          case 0:
+            localVideo.className = 'stream'+peer.id+'_0';
+            break;
+          case 1:
+            localVideo.className = 'stream'+peer.id+'_1';
+            break;
+          case 2:
+            localVideo.className = 'stream'+peer.id+'_2';
             break;
         }
       }
