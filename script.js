@@ -131,7 +131,7 @@ const Peer = window.Peer;
 
     room.on('data', ({ data, src }) => {
       // Show a message sent to the room and who sent
-      messages.textContent += `${src}: ${data}\n`;
+      // messages.textContent += `${src}: ${data}\n`;
 
       console.log(peer.id);
       if(MethodMode == 2){
@@ -389,9 +389,6 @@ const Peer = window.Peer;
             break;
         }
       }
-
-
-
         console.log(right_arrow.className);
         console.log(left_arrow.className);
       });
@@ -447,7 +444,7 @@ const Peer = window.Peer;
       ydot = data.y;
 
 
-      if(ydot > 550){
+      if(ydot > 500){
         if(xdot < 800 && xdot >= 500){
           if(state != 1){
 
@@ -469,7 +466,7 @@ const Peer = window.Peer;
             gaze_pos[1] = 1;
 
             room.send(gaze_pos);
-            messages.textContent += `${peer.id}:"Looking1"\n`;
+            // messages.textContent += `${peer.id}:${timestamp}:"Looking1"\n`;
 
           }
 
@@ -492,10 +489,10 @@ const Peer = window.Peer;
             console.log(timestampArr,":",statesArr);
 
             gaze_pos[0] = peer.id;
-            gaze_pos[1] = 1;
+            gaze_pos[1] = 0;
 
             room.send(gaze_pos);
-            messages.textContent += `${peer.id}:"Looking1"\n`;
+            // messages.textContent += `${peer.id}:${timestamp}:"Looking0"\n`;
           }
         }
       }
@@ -581,7 +578,7 @@ const Peer = window.Peer;
     }
 
 
-      }else if(ydot <= 550 && ydot > 50){
+      }else if(ydot <= 500 && ydot > 50){
         if(xdot < 650 && xdot > 50){
           if(state != 2){
             if(mode == 1){
@@ -683,7 +680,7 @@ const Peer = window.Peer;
       
 
             room.send(gaze_pos);
-            messages.textContent += `${peer.id}: Looking2\n`;
+            // messages.textContent += `${peer.id}: ${timestamp}:Looking2\n`;
           }
           }
         }else if(xdot >=650 && xdot < 1250){
@@ -787,7 +784,7 @@ const Peer = window.Peer;
       
 
             room.send(gaze_pos);
-            messages.textContent += `${peer.id}: Looking3\n`;
+            // messages.textContent += `${peer.id}: ${timestamp}:Looking3\n`;
           }
         }
         }else{
@@ -808,7 +805,7 @@ const Peer = window.Peer;
             console.log(timestampArr,":",statesArr);
 
             gaze_pos[0] = peer.id;
-            gaze_pos[1] = 1;
+            gaze_pos[1] = 0;
 
             size2[1] = 0;
             size3[1] = 0;
@@ -889,7 +886,7 @@ const Peer = window.Peer;
 
 
             room.send(gaze_pos);
-            messages.textContent += `${peer.id}:"Looking1"\n`;
+            // messages.textContent += `${peer.id}:${timestamp}:"Looking0"\n`;
           }
         }
         }
@@ -911,7 +908,7 @@ const Peer = window.Peer;
           console.log(timestampArr,":",statesArr);
 
           gaze_pos[0] = peer.id;
-          gaze_pos[1] = 1;
+          gaze_pos[1] = 0;
 
           size2[1] = 0;
           size3[1] = 0;
@@ -991,7 +988,7 @@ const Peer = window.Peer;
         }
  
           room.send(gaze_pos);
-          messages.textContent += `${peer.id}:"Looking1"\n`;
+          // messages.textContent += `${peer.id}:${timestamp}:"Looking0"\n`;
         }
       }
       }
